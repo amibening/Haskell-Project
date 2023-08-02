@@ -1,7 +1,7 @@
 module Actions where
 
 import Text.Regex.PCRE ((=~))
-import Types (Address (..), Country (..))
+import Types --(Address (..), Country (..))
 
 printAddress :: Address -> IO ()
 printAddress addr = putStrLn $ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ ", " ++ zipCode addr ++ ", " ++ show (country addr)
@@ -35,11 +35,11 @@ getAddressFromUser = do
         _ -> Nothing
   case country of
     Just c -> do
-      putStrLn "Enter street:"
+      putStrLn "Enter house no. and street:"
       street <- getLine
-      putStrLn "Enter city:"
+      putStrLn "Enter city or town:"
       city <- getLine
-      putStrLn "Enter state:"
+      putStrLn "Enter state or county:"
       state <- getLine
       putStrLn "Enter zip code:"
       zipCode <- getLine
