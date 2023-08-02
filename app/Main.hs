@@ -6,4 +6,4 @@ import Types
 
 main :: IO ()
 main = do
-  putStrLn "Hello Haskell!"
+  putStrLn "Hello This is my Haskell Project!"
