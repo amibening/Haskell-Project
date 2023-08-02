@@ -8,11 +8,11 @@ printAddress addr = putStrLn $ street addr ++ ", " ++ city addr ++ ", " ++ state
 
 postcodeFormat :: Country -> String
 postcodeFormat country = case country of
-  US -> "5 digits (e.g., 12345)"
-  UK -> "Format AN NAA or ANN NAA or AAN NAA or AANN NAA or ANA NAA or AANA NAA (e.g., M1 1AE)"
-  NL -> "4 digits + 2 letters (e.g., 1234 AB)"
+  US -> "US - 5 digits (e.g., 12345)"
+  UK -> "UK - AN NAA or ANN NAA or AAN NAA or AANN NAA or ANA NAA or AANA NAA (e.g., M1 1AE)"
+  NL -> "NL - 4 digits + 2 letters (e.g., 1234 AB)"
   HK -> "No postcode."
-  IN -> "6 digits (e.g., 110001)"
+  IN -> "IN - 6 digits (e.g., 110001)"
 
 validatePostcode :: String -> Country -> Bool
 validatePostcode postcode country = case country of
@@ -46,7 +46,7 @@ getAddressFromUser = do
       if validatePostcode zipCode c
         then return (Address street city state zipCode c)
         else do
-          putStrLn $ "Invalid postcode format, please try again. The format should be: " ++ postcodeFormat c
+          putStrLn $ "Invalid postcode format, please try again. The format for " ++ postcodeFormat c
           getAddressFromUser
     _ -> do
       putStrLn "Invalid country selection, please try again."
