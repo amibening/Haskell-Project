@@ -46,7 +46,7 @@ getAddressFromUser = do
       if validatePostcode zipCode c
         then return (Address street city state zipCode c)
         else do
-          putStrLn $ "Invalid postcode format, please try again. The format for " ++ postcodeFormat c
+          putStrLn $ "Invalid postcode format, please try again. The format for the " ++ postcodeFormat c
           getAddressFromUser
     _ -> do
       putStrLn "Invalid country selection, please try again."
