@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Actions where
 
 import Text.Regex.PCRE ((=~))

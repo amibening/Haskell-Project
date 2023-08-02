@@ -14,7 +14,7 @@ getAddressesFromUser = do
 
 editAddress :: [Address] -> IO [Address]
 editAddress addrs = do
-  putStrLn "Please select an address to edit (enter the number):"
+  putStrLn "Please select an address to edit (enter id number):"
   printAddressesWithIndices addrs
   idxStr <- getLine
   case readMaybe idxStr of
@@ -34,7 +34,8 @@ editAddress addrs = do
 
 main :: IO ()
 main = do
-  putStrLn "Please enter addresses:"
+  putStrLn "Welcome to the International Address Book!"
+  putStrLn "Please enter an address:"
   addrs <- getAddressesFromUser
   addrs' <- editAddress addrs
   putStrLn "You entered these addresses:"
