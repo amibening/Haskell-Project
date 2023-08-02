@@ -14,7 +14,7 @@ postcodeFormat country = case country of
   UK -> "Format AN NAA or ANN NAA or AAN NAA or AANN NAA or ANA NAA or AANA NAA (e.g., M1 1AE)"
   NL -> "4 digits + 2 letters (e.g., 1234 AB)"
   HK -> "No postcode."
-  IN -> "6 digits (e.g., 110001)" -- Added "IN" for India
+  IN -> "6 digits (e.g., 110001)"
 
 validatePostcode :: String -> Country -> Bool
 validatePostcode postcode country = case country of
@@ -22,7 +22,7 @@ validatePostcode postcode country = case country of
   UK -> postcode =~ ("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$" :: String) :: Bool
   NL -> postcode =~ ("^[0-9]{4} [A-Z]{2}$" :: String) :: Bool
   HK -> True -- HK has no postcode
-  IN -> postcode =~ ("^[0-9]{6}$" :: String) :: Bool -- Added "IN" for India
+  IN -> postcode =~ ("^[0-9]{6}$" :: String) :: Bool
 
 getAddressFromUser :: IO Address
 getAddressFromUser = do
@@ -33,7 +33,7 @@ getAddressFromUser = do
         "2" -> Just UK
         "3" -> Just NL
         "4" -> Just HK
-        "5" -> Just IN -- Added "IN" for India
+        "5" -> Just IN
         _ -> Nothing
   case country of
     Just c -> do
