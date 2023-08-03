@@ -1,7 +1,7 @@
 module Actions where
 
 import Text.Regex.PCRE ((=~))
-import Types --(Address (..), Country (..))
+import Types
 
 printAddress :: Address -> IO ()
 printAddress addr = putStrLn $ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ ", " ++ zipCode addr ++ ", " ++ show (country addr)
@@ -22,8 +22,8 @@ validatePostcode postcode country = case country of
   HK -> True -- HK has no postcode
   IN -> postcode =~ ("^[0-9]{6}$" :: String) :: Bool
 
-getAddressFromUser :: IO Address
-getAddressFromUser = do
+inputAddressFromUser :: IO Address
+inputAddressFromUser = do
   putStrLn "Select country: 1 - US, 2 - UK, 3 - NL, 4 - HK, 5 - IN"
   countryStr <- getLine
   let country = case countryStr of
@@ -47,10 +47,10 @@ getAddressFromUser = do
         then return (Address street city state zipCode c)
         else do
           putStrLn $ "Invalid postcode format, please try again. The format for the " ++ postcodeFormat c
-          getAddressFromUser
+          inputAddressFromUser
     _ -> do
       putStrLn "Invalid country selection, please try again."
-      getAddressFromUser
+      inputAddressFromUser
 
 printAddresses :: [Address] -> IO ()
 printAddresses = mapM_ printAddress

@@ -7,7 +7,7 @@ getAddressesFromUser = do
   response <- getLine
   case response of
     "yes" -> do
-      addr <- getAddressFromUser
+      addr <- inputAddressFromUser
       addrs <- getAddressesFromUser
       return (addr : addrs)
     _ -> return []
@@ -22,7 +22,7 @@ editAddress addrs = do
       if idx > 0 && idx <= length addrs
         then do
           putStrLn "Enter new address:"
-          newAddr <- getAddressFromUser
+          newAddr <- inputAddressFromUser
           let (ys, zs) = splitAt (idx - 1) addrs
           return (ys ++ newAddr : tail zs)
         else do
@@ -44,7 +44,7 @@ main = do
       response <- getLine
       case response of
         "1" -> do
-          addr <- getAddressFromUser
+          addr <- inputAddressFromUser
           runAddressBook (addr : addrs)
         "2" -> do
           addrs' <- editAddress addrs
