@@ -35,6 +35,25 @@ editAddress addrs = do
 main :: IO ()
 main = do
   putStrLn "Welcome to the International Address Book!"
-  addrs <- getAddressesFromUser
-  addrs' <- editAddress addrs
-  printAddresses addrs'
+  addrs <- runAddressBook []
+  printAddresses addrs
+  where
+    runAddressBook :: [Address] -> IO [Address]
+    runAddressBook addrs = do
+      putStrLn "Please select an option: 1 - Add an address, 2 - Edit an address, 3 - List all addresses, 4 - Quit"
+      response <- getLine
+      case response of
+        "1" -> do
+          addr <- getAddressFromUser
+          runAddressBook (addr : addrs)
+        "2" -> do
+          addrs' <- editAddress addrs
+          runAddressBook addrs'
+        "3" -> do
+          printAddresses addrs
+          runAddressBook addrs
+        "4" -> do
+          return addrs
+        _ -> do
+          putStrLn "Invalid option, please try again."
+          runAddressBook addrs
