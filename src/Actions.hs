@@ -41,7 +41,7 @@ inputAddressFromUser = do
       city <- getLine
       putStrLn "Enter state or county:"
       state <- getLine
-      putStrLn "Enter zip code:"
+      putStrLn "Enter zip or post code:"
       zipCode <- getLine
       if validatePostcode zipCode c
         then return (Address street city state zipCode c)
@@ -56,6 +56,6 @@ printAddresses :: [Address] -> IO ()
 printAddresses = mapM_ printAddress
 
 printAddressesWithIndices :: [Address] -> IO ()
-printAddressesWithIndices addrs = mapM_ putStrLn (zipWith format [1 ..] addrs)
+printAddressesWithIndices addrs = mapM_ (putStrLn . format) (zip [1 ..] addrs)
   where
-    format i addr = show i ++ ": " ++ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ " " ++ zipCode addr ++ ", " ++ show (country addr)
+    format (i, addr) = show i ++ ": " ++ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ " " ++ zipCode addr ++ ", " ++ show (country addr)
