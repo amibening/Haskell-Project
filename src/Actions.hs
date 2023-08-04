@@ -1,10 +1,8 @@
 module Actions where
 
+import Text.Read (readMaybe)
 import Text.Regex.PCRE ((=~))
 import Types
-
-printAddress :: Address -> IO ()
-printAddress addr = putStrLn $ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ ", " ++ zipCode addr ++ ", " ++ show (country addr)
 
 postcodeFormat :: Country -> String
 postcodeFormat country = case country of
@@ -51,6 +49,29 @@ inputAddressFromUser = do
     _ -> do
       putStrLn "Invalid country selection, please try again."
       inputAddressFromUser
+
+editAddress :: [Address] -> IO [Address]
+editAddress addrs = do
+  putStrLn "Select an id to edit any addresses input (or press enter to quit):"
+  printAddressesWithIndices addrs
+  idxStr <- getLine
+  case readMaybe idxStr of
+    Just idx ->
+      if idx > 0 && idx <= length addrs
+        then do
+          putStrLn "Enter new address:"
+          newAddr <- inputAddressFromUser
+          let (ys, zs) = splitAt (idx - 1) addrs
+          return (ys ++ newAddr : tail zs)
+        else do
+          putStrLn "Invalid index. No changes made."
+          return addrs
+    Nothing -> do
+      putStrLn "Invalid input. No changes made."
+      return addrs
+
+printAddress :: Address -> IO ()
+printAddress addr = putStrLn $ street addr ++ ", " ++ city addr ++ ", " ++ state addr ++ ", " ++ zipCode addr ++ ", " ++ show (country addr)
 
 printAddresses :: [Address] -> IO ()
 printAddresses = mapM_ printAddress
