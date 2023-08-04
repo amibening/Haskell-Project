@@ -2,7 +2,7 @@ import Lib
 
 main :: IO ()
 main = do
-  putStrLn "Welcome to the My International Address Book!"
+  putStrLn "Welcome to My International Address Book!"
   addrs <- myAddressBook []
   printAddresses addrs
   where
